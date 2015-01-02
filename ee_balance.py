@@ -1,0 +1,2 @@
+class EEBalanceChecker(object):
+    pass
