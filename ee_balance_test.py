@@ -12,9 +12,11 @@ class EEUnitTests(unittest.TestCase):
     def test_fetch_login_page(self):
         login_page_response = self.eecon._fetch_login_page()
         self.assertEqual(200, login_page_response.status_code)
-        
-    def test_fetch_balance_page(self):
+    
+    def test_fetch_balance_json(self):
         balance_page_response = self.eecon._fetch_balance_page()
         self.assertEqual(200, balance_page_response.status_code)
+        balance_json_response = self.eecon._fetch_balance_json()
+        self.assertEqual(200, balance_json_response.status_code)
 
         

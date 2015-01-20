@@ -27,3 +27,8 @@ class EEConnector(object):
                                 data=self.authentication_data,
                                 allow_redirects=True)
         
+    def _fetch_balance_json(self):
+        """After login request the json that will state the balance"""
+        return self.session.post('https://www.youraccount.orange.co.uk/sss/ajaxServices/plans/PAYGPlanDetails',
+                                data=self.authentication_data,
+                                allow_redirects=True)
