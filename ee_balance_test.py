@@ -19,4 +19,13 @@ class EEUnitTests(unittest.TestCase):
         balance_json_response = self.eecon._fetch_balance_json()
         self.assertEqual(200, balance_json_response.status_code)
 
+    def test_start_session_from_config_file(self):
+        test_file_contents = """[auth]
+username=uname
+password=pword
+"""
+        eeconnector = EEConnector.construct_from_config(test_file_contents)
+        self.assertEqual("uname", eeconnector.authentication_data['LOGIN'])
+        self.assertEqual("pword", eeconnector.authentication_data['PASSWORD'])
+        #refactor setUp
         

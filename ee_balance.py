@@ -3,6 +3,7 @@
     balance.
 """
 
+import configparser
 import requests
 
 class EEConnector(object):
@@ -10,12 +11,20 @@ class EEConnector(object):
        balance information
     """
     
+    @staticmethod
+    def construct_from_config(config_data):
+        """Set up the instance using the passed config data in ConfigParser format"""
+        config = configparser.ConfigParser()
+        config.read_string(config_data)
+        return EEConnector(config['auth']['username'], config['auth']['password'])
+        
+    
     def __init__(self, username, password):
         """Record the authentication data in the format needed to login to ee"""
         self.authentication_data = {'LOGIN': username, 'PASSWORD': password}
         self.session = requests.Session()
         self.session.verify = 'SymantecClass3SecureServerCA-G4.crt'
-
+        
     def _fetch_login_page(self):
         """Fetch the login page and return the requests response object"""
         return self.session.get('https://web.orange.co.uk/id/signin.php')
