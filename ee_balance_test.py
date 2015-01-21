@@ -1,13 +1,13 @@
-import configparser
 import unittest
 from ee_balance import *
 
 
 class EEUnitTests(unittest.TestCase):
     def setUp(self):
-        config = configparser.ConfigParser()
-        config.read('secret.auth')
-        self.eecon = EEConnector(username=config['auth']['username'], password=config['auth']['password'])
+        config = ""
+        with open("secret.auth","r") as f:
+            config = f.read()
+        self.eecon = EEConnector.construct_from_config(config)
         
     def test_fetch_login_page(self):
         login_page_response = self.eecon._fetch_login_page()
@@ -27,5 +27,5 @@ password=pword
         eeconnector = EEConnector.construct_from_config(test_file_contents)
         self.assertEqual("uname", eeconnector.authentication_data['LOGIN'])
         self.assertEqual("pword", eeconnector.authentication_data['PASSWORD'])
-        #refactor setUp
+        
         
