@@ -4,10 +4,7 @@ from ee_balance import *
 
 class EEUnitTests(unittest.TestCase):
     def setUp(self):
-        config = ""
-        with open("secret.auth","r") as f:
-            config = f.read()
-        self.eecon = EEConnector.construct_from_config(config)
+        self.eecon = EEConnector.construct_from_config_file()
         
     def test_fetch_login_page(self):
         login_page_response = self.eecon._fetch_login_page()

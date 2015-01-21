@@ -12,6 +12,14 @@ class EEConnector(object):
     """
     
     @staticmethod
+    def construct_from_config_file(filename="secret.auth"):
+        """Set up the instance from the config in the passed file"""
+        config = ""
+        with open(filename, "r") as f:
+            config = f.read()
+        return EEConnector.construct_from_config(config)
+    
+    @staticmethod
     def construct_from_config(config_data):
         """Set up the instance using the passed config data in ConfigParser format"""
         config = configparser.ConfigParser()
