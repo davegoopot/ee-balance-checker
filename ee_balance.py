@@ -49,3 +49,13 @@ class EEConnector(object):
         return self.session.post('https://www.youraccount.orange.co.uk/sss/ajaxServices/plans/PAYGPlanDetails',
                                 data=self.authentication_data,
                                 allow_redirects=True)
+   
+    def fetch_balance(self):
+        """Connect to the site and obtain the balance"""
+        self._fetch_balance_page()
+        resp = self._fetch_balance_json()
+        return resp.json()["PlanPAYG"]["airTimeBalance"]
+                                
+if __name__ == '__main__':
+	ec = EEConnector.construct_from_config_file()
+	print(ec.fetch_balance())
